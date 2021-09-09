@@ -40,8 +40,10 @@ INSTALLED_APPS = [
     # other apps
     'rest_framework',
     'corsheaders',
+    'django_filters',
     # my apps
     'usersapp',
+    'todoapp',
 ]
 
 MIDDLEWARE = [
@@ -128,5 +130,18 @@ STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'usersapp.User'
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000'
+    'http://127.0.0.1:3000',
+    'http://localhost:3000',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 100,
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ],
+}
