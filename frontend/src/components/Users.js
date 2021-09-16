@@ -15,7 +15,6 @@ const UserList = ({users}) => {
     return (
         <table className="table">
             <thead>
-            <tr><th>USERS</th></tr>
                 <tr>
                     <th>USER NAME</th>
                     <th>FIRST NAME</th>

@@ -10,6 +10,9 @@ class Project(models.Model):
     def __str__(self):
         return f'{self.name}'
 
+    class Meta:
+        ordering = ['pk']
+
 
 class ToDo(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
@@ -18,3 +21,6 @@ class ToDo(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User, on_delete=models.PROTECT)
     is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['pk']

@@ -1,11 +1,11 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 
 const ProjectItem = ({project}) => {
     return (
         <tr>
             <td>
-                <Link to={'/project/${project.id}/'}>{project.id}</Link>
+                <Link to={`/project/${project.id}/`}>{project.id}</Link>
             </td>
             <td>{project.name}</td>
             <td>{project.users}</td>
@@ -18,7 +18,6 @@ const ProjectList = ({projects}) => {
     return (
         <table>
             <thead>
-                <tr><th>PROJECTS</th></tr>
                 <tr>
                     <th>ID</th>
                     <th>NAME</th>
@@ -27,9 +26,35 @@ const ProjectList = ({projects}) => {
                 </tr>
             </thead>
             <tbody>
-                {projects.map((project) => <ProjectItem key={project.id} todo={project} />)}
+                {projects.map((project) => <ProjectItem key={project.id} item={project} />)}
             </tbody>
         </table>
     )
 }
-export default ProjectList;
+
+const ProjectUserItem = ({item}) => {
+    return (
+        <li>
+            {item.username} ({item.email}
+        </li>
+    )
+}
+
+const ProjectDetail = ({getProject, item}) => {
+    let {id} = useParams();
+    if (!Object.keys(item).length || item.id !== +id) {
+        getProject(id);
+    }
+    let users = item.users ? item.users : [];
+    return (
+        <div>
+            <h1>{item.name}</h1>
+            Repo URL: <a href={item.repository}>{item.repository}</a>
+            Users:
+            <ol>
+                {users.map((user) => <ProjectUserItem key={user.id} item={user}/>)}
+            </ol>
+        </div>
+    )
+}
+export {ProjectDetail, ProjectList};

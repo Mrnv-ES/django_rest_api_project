@@ -16,7 +16,6 @@ const ToDoList = ({todos}) => {
     return (
         <table>
             <thead>
-                <tr><th>TODOS</th></tr>
                 <tr>
                     <th>PROJECT</th>
                     <th>TEXT</th>
